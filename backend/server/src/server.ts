@@ -67,9 +67,29 @@ app.use(express.urlencoded({ extended: true }));
 app.use(cookieParser());
 
 // Rate limiting
+// Root and Health endpoints (not rate limited)
+app.get("/", (_req, res) => {
+  res.json({
+    success: true,
+    message: "CareFlow API is running",
+    version: "1.0.0",
+  });
+});
+
+app.get("/api/health", (_req, res) => {
+  res.json({
+    success: true,
+    service: "CareFlow Backend",
+    database: "MongoDB",
+    status: "healthy",
+  });
+});
+
+// Rate limiting (generous for development, strict for production)
+const isDevelopment = process.env.NODE_ENV !== "production" || process.env.CAREFLOW_DEMO_MODE === "true";
 const limiter = rateLimit({
   windowMs: 15 * 60 * 1000,
-  max: process.env.CAREFLOW_DEMO_MODE === "true" ? 1000 : 100,
+  max: isDevelopment ? 10000 : 100,
   message: {
     success: false,
     message: "Too many requests. Please try again later.",
@@ -92,25 +112,6 @@ app.use("/api/insights", insightsRoutes);
 app.use("/api/assistant", assistantRoutes);
 app.use("/api/care-plans", carePlanRoutes);
 app.use("/api/admin", adminRoutes);
-
-// Root endpoint
-app.get("/", (_req, res) => {
-  res.json({
-    success: true,
-    message: "CareFlow API is running",
-    version: "1.0.0",
-  });
-});
-
-// API health check
-app.get("/api/health", (_req, res) => {
-  res.json({
-    success: true,
-    service: "CareFlow Backend",
-    database: "MongoDB",
-    status: "healthy",
-  });
-});
 
 // Start server
 const startServer = async (): Promise<void> => {

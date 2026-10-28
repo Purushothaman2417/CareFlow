@@ -210,7 +210,7 @@ function ProfilePage() {
             <Label htmlFor="doctor-specialization">Specialty</Label>
             <select
               id="doctor-specialization"
-              className={sel}
+              className="h-10 w-full rounded-md border border-input bg-background px-3 text-sm"
               value={form.specialization}
               onChange={(event) => updateField("specialization", event.target.value)}
               required

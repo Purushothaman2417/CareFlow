@@ -1,4 +1,4 @@
-const CLINIC_TIME_ZONE = import.meta.env.VITE_CAREFLOW_TIME_ZONE || "Asia/Kolkata";
+const CLINIC_TIME_ZONE = import.meta.env["VITE_CAREFLOW_TIME_ZONE"] || "Asia/Kolkata";
 
 export function clinicDateKey(date = new Date()): string {
   const parts = new Intl.DateTimeFormat("en-CA", {

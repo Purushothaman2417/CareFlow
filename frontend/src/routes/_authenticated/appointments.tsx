@@ -316,7 +316,7 @@ function AppointmentCard({
   isDoctor: boolean;
   isPatient: boolean;
   isStaff: boolean;
-  queueEntry?: QueueEntry;
+  queueEntry?: QueueEntry | undefined;
   queueLoading: boolean;
 }) {
   const queryClient = useQueryClient();

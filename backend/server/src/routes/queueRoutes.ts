@@ -17,6 +17,7 @@ const router = Router();
 
 router.post("/check-in", protect, checkInPatient);
 router.get("/mine", protect, getMyQueueEntries);
+router.get("/my", protect, getMyQueueEntries);
 router.get("/today", protect, getTodayQueue);
 router.get("/hospital", protect, getHospitalQueues);
 router.post("/call-next", protect, callNextPatient);

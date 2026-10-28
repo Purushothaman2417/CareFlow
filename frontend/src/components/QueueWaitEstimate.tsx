@@ -2,8 +2,8 @@ export function QueueWaitEstimate({
   peopleAhead,
   estimatedWaitMinutes,
 }: {
-  peopleAhead?: number;
-  estimatedWaitMinutes?: number | null;
+  peopleAhead?: number | undefined;
+  estimatedWaitMinutes?: number | null | undefined;
 }) {
   if (estimatedWaitMinutes === undefined || estimatedWaitMinutes === null) {
     return <span className="text-xs text-muted-foreground">Estimated wait unavailable</span>;

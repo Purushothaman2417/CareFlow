@@ -222,6 +222,9 @@ function AuthPage() {
 
     if (window.google) {
       initializeGoogleSignIn();
+      return () => {
+        cancelled = true;
+      };
     } else {
       const script = document.createElement("script");
       script.src = "https://accounts.google.com/gsi/client";

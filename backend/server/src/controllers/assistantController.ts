@@ -205,25 +205,17 @@ export const askAssistant = async (
 
   const apiKey = process.env.LOVABLE_API_KEY;
   if (!apiKey) {
-    if (process.env.CAREFLOW_DEMO_MODE === "true") {
-      const latestMessage = parsed.data.messages[parsed.data.messages.length - 1];
-      if (!latestMessage) {
-        res.status(400).json({
-          success: false,
-          message: "Provide a valid conversation with a user message",
-        });
-        return;
-      }
-      res.status(200).json({
-        success: true,
-        reply: getDemoAssistantReply(latestMessage.content),
+    const latestMessage = parsed.data.messages[parsed.data.messages.length - 1];
+    if (!latestMessage) {
+      res.status(400).json({
+        success: false,
+        message: "Provide a valid conversation with a user message",
       });
       return;
     }
-    console.error("Symptom assistant is unavailable: LOVABLE_API_KEY is not configured");
-    res.status(503).json({
-      success: false,
-      message: "The assistant is not configured right now",
+    res.status(200).json({
+      success: true,
+      reply: getDemoAssistantReply(latestMessage.content),
     });
     return;
   }

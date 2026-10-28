@@ -1,4 +1,4 @@
-const API_BASE_URL = (import.meta.env.VITE_API_BASE_URL ?? "http://localhost:8000/api").replace(
+const API_BASE_URL = (import.meta.env["VITE_API_BASE_URL"] ?? "http://localhost:8000/api").replace(
   /\/+$/,
   "",
 );
@@ -345,11 +345,11 @@ function authenticatedHeaders(): HeadersInit {
 
 export async function getDoctors(
   filters: {
-    search?: string;
-    specialization?: string;
-    department?: string;
-    availability?: boolean;
-    sort?: "newest" | "name" | "experience" | "fee";
+    search?: string | undefined;
+    specialization?: string | undefined;
+    department?: string | undefined;
+    availability?: boolean | undefined;
+    sort?: "newest" | "name" | "experience" | "fee" | undefined;
   } = {},
 ): Promise<DoctorProfile[]> {
   const params = new URLSearchParams();
@@ -650,11 +650,11 @@ export async function getConsultations(): Promise<Consultation[]> {
 
 export async function createConsultation(input: {
   appointmentId: string;
-  symptoms?: string;
+  symptoms?: string | undefined;
   diagnosis: string;
-  prescription?: string;
-  notes?: string;
-  followUpDate?: string;
+  prescription?: string | undefined;
+  notes?: string | undefined;
+  followUpDate?: string | undefined;
 }): Promise<Consultation> {
   const response = await apiRequest<{ consultation: Consultation }>("/consultations", {
     method: "POST",

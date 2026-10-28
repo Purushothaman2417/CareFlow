@@ -4,8 +4,8 @@ export function QueueWaitTime({
   checkedInAt,
   endedAt,
 }: {
-  checkedInAt?: string;
-  endedAt?: string;
+  checkedInAt?: string | undefined;
+  endedAt?: string | undefined;
 }) {
   const [now, setNow] = useState(() => Date.now());
 
